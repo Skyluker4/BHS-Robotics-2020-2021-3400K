@@ -9,10 +9,10 @@ void initialize() {
 	pros::lcd::initialize();
 }
 
+void competition_initialize() {}
+
 void disabled() {
 	// Stop All Motors
 	motors::brakeModeHoldAllMotors();
 	motors::stopAllMotors();
 }
-
-void competition_initialize() {}
