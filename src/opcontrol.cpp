@@ -2,70 +2,63 @@
 
 #include "config.hpp"
 #include "main.h"
-#include "pros/misc.h"
 
-// Initialize variables
-uint_fast8_t speed = 32;
-// int_fast8_t power, turn;
-
-inline void drive() {
-	// Change speed for linear movements (Buttons X (increase) and B (decrease))
-	if(controllers::master.get_digital(pros::E_CONTROLLER_DIGITAL_A) && speed < 127)
-		speed++;
-	else if(controllers::master.get_digital(pros::E_CONTROLLER_DIGITAL_Y) && speed > 1)
-		speed--;
+inline void drive(uint_fast8_t& driveSpeed) {
+	// Change speed for linear movements (Buttons A (increase) and Y (decrease))
+	if(controllers::master.get_digital(pros::E_CONTROLLER_DIGITAL_A) && driveSpeed < 127)
+		driveSpeed++;
+	else if(controllers::master.get_digital(pros::E_CONTROLLER_DIGITAL_Y) && driveSpeed > 1)
+		driveSpeed--;
 
 	// Backwards (Button Down) and move cubes out
 	if(controllers::master.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN)) {
-		motors::driveLeft = -speed;
-		motors::driveRight = -speed;
+		motors::driveLeft = -driveSpeed;
+		motors::driveRight = -driveSpeed;
 	}
 
 	// Forwards (Button Up)
 	if(controllers::master.get_digital(pros::E_CONTROLLER_DIGITAL_UP)) {
-		motors::driveLeft = speed;
-		motors::driveRight = speed;
+		motors::driveLeft = driveSpeed;
+		motors::driveRight = driveSpeed;
 		return;
 	}
 
 	// Turn Left (Button Left)
 	else if(controllers::master.get_digital(pros::E_CONTROLLER_DIGITAL_LEFT)) {
-		motors::driveLeft = -127;
-		motors::driveRight = 127;
+		motors::driveLeft = -driveSpeed;
+		motors::driveRight = driveSpeed;
 		return;
 	}
 
 	// Turn Right (Button Right)
 	else if(controllers::master.get_digital(pros::E_CONTROLLER_DIGITAL_RIGHT)) {
-		motors::driveLeft = 127;
-		motors::driveRight = -127;
+		motors::driveLeft = driveSpeed;
+		motors::driveRight = -driveSpeed;
 		return;
 	}
 
 	// Use analog stick if no drive movement buttons are pressed
 	else {
-		//power = controllers::master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
-		//turn = controllers::master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_X);
-
 		// Set motors
-		motors::driveLeft =
-			controllers::master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
-		motors::driveRight =
-			controllers::master.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_Y);
+		motors::driveLeft = controllers::master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
+		motors::driveRight = controllers::master.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_Y);
 		return;
 	}
 }
 
 inline void intake() {
+	// Speed for intake
+	constexpr uint_fast8_t intakeSpeed = 127;
+
 	// Intake in
 	if(controllers::master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)) {
-		motors::intakeLeft = 127;
-		motors::intakeRight = 127;
+		motors::intakeLeft = intakeSpeed;
+		motors::intakeRight = intakeSpeed;
 	}
 	// Intake out
 	else if(controllers::master.get_digital(pros::E_CONTROLLER_DIGITAL_R1)) {
-		motors::intakeLeft = -127;
-		motors::intakeRight = -127;
+		motors::intakeLeft = -intakeSpeed;
+		motors::intakeRight = -intakeSpeed;
 	}
 	// Intake hold
 	else {
@@ -116,13 +109,16 @@ void opcontrol() {
 	controllers::master.clear_line(1);
 	controllers::master.set_text(0, 0, "Driver control");
 
+	// Setup variables
+	uint_fast8_t driveSpeed = 127;
+
 	// Tell driver we're ready
 	controllers::master.rumble("-.");
 
 	// Begin control
 	while(true) {
-		// Run the stuff
-		drive();
+		// Run all subsystems
+		drive(driveSpeed);
 		intake();
 		scoring();
 		flap();
