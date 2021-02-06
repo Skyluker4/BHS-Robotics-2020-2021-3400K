@@ -1,0 +1,387 @@
+{
+	// See https://go.microsoft.com/fwlink/?LinkId=733558
+	// for the documentation about the tasks.json format
+	"version": "2.0.0",
+	"tasks": [{
+			"label": "Clean",
+			"type": "shell",
+			"command": "prosv5 make clean",
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": true,
+				"panel": "shared",
+				"showReuseMessage": true,
+				"clear": true
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "Build",
+			"type": "shell",
+			"command": "prosv5 make EXTRA_CXXFLAGS+=-O3",
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": true,
+				"panel": "shared",
+				"showReuseMessage": true,
+				"clear": true
+			},
+			"problemMatcher": [
+				"$gcc"
+			]
+		},
+		{
+			"label": "Debug",
+			"type": "shell",
+			"command": "prosv5 make all EXTRA_CXXFLAGS+=-Wextra EXTRA_CXXFLAGS+=-Og EXTRA_CXXFLAGS+=-g3 EXTRA_CXXFLAGS+=-Wno-ignored-qualifiers",
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": true,
+				"panel": "shared",
+				"showReuseMessage": true,
+				"clear": true
+			},
+			"problemMatcher": [
+				"$gcc"
+			]
+		},
+		{
+			"label": "Upload",
+			"type": "shell",
+			"command": "prosv5 upload --slot 8 --name 'Driver Control'",
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": true,
+				"panel": "shared",
+				"showReuseMessage": true,
+				"clear": true
+			}
+		},
+		{
+			"label": "Clean and Build",
+			"type": "shell",
+			"command": "prosv5 make all EXTRA_CXXFLAGS+=-O3",
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": true,
+				"panel": "shared",
+				"showReuseMessage": true,
+				"clear": true
+			},
+			"problemMatcher": [
+				"$gcc"
+			]
+		},
+		{
+			"label": "Build and Upload",
+			"type": "shell",
+			"command": "prosv5 make EXTRA_CXXFLAGS+=-O3; prosv5 upload --slot 8 --name 'Driver Control'",
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": true,
+				"panel": "shared",
+				"showReuseMessage": true,
+				"clear": true
+			},
+			"problemMatcher": [
+				"$gcc"
+			]
+		},
+		{
+			"label": "Clean, Build, and Upload",
+			"type": "shell",
+			"command": "prosv5 make all EXTRA_CXXFLAGS+=-O3; prosv5 upload --slot 8 --name 'Driver Control'",
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": true,
+				"panel": "shared",
+				"showReuseMessage": true,
+				"clear": true
+			},
+			"problemMatcher": [
+				"$gcc"
+			]
+		},
+		{
+			"label": "Build Blue Right",
+			"type": "shell",
+			"command": "prosv5 make all EXTRA_CXXFLAGS+=-O3 EXTRA_CXXFLAGS+=-DBLUE_RIGHT",
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": true,
+				"panel": "shared",
+				"showReuseMessage": true,
+				"clear": true
+			},
+			"problemMatcher": [
+				"$gcc"
+			]
+		},
+		{
+			"label": "Upload Blue Right",
+			"type": "shell",
+			"command": "prosv5 upload --slot 2 --name 'Blue Right'",
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": true,
+				"panel": "shared",
+				"showReuseMessage": true,
+				"clear": true
+			}
+		},
+		{
+			"label": "Build and Upload Blue Right",
+			"type": "shell",
+			"command": "prosv5 make all EXTRA_CXXFLAGS+=-O3 EXTRA_CXXFLAGS+=-DBLUE_RIGHT; prosv5 upload --slot 2 --name 'Blue Right'",
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": true,
+				"panel": "shared",
+				"showReuseMessage": true,
+				"clear": true
+			},
+			"problemMatcher": [
+				"$gcc"
+			]
+		},
+		{
+			"label": "Build Blue Left",
+			"type": "shell",
+			"command": "prosv5 make all EXTRA_CXXFLAGS+=-O3 EXTRA_CXXFLAGS+=-DBLUE_LEFT",
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": true,
+				"panel": "shared",
+				"showReuseMessage": true,
+				"clear": true
+			},
+			"problemMatcher": [
+				"$gcc"
+			]
+		},
+		{
+			"label": "Upload Blue Left",
+			"type": "shell",
+			"command": "prosv5 upload --slot 3 --name 'Blue Left'",
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": true,
+				"panel": "shared",
+				"showReuseMessage": true,
+				"clear": true
+			}
+		},
+		{
+			"label": "Build and Upload Blue Left",
+			"type": "shell",
+			"command": "prosv5 make all EXTRA_CXXFLAGS+=-O3 EXTRA_CXXFLAGS+=-DBLUE_LEFT; prosv5 upload --slot 3 --name 'Blue Left'",
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": true,
+				"panel": "shared",
+				"showReuseMessage": true,
+				"clear": true
+			},
+			"problemMatcher": [
+				"$gcc"
+			]
+		},
+		{
+			"label": "Build Red Right",
+			"type": "shell",
+			"command": "prosv5 make all EXTRA_CXXFLAGS+=-O3 EXTRA_CXXFLAGS+=-DRED_RIGHT",
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": true,
+				"panel": "shared",
+				"showReuseMessage": true,
+				"clear": true
+			},
+			"problemMatcher": [
+				"$gcc"
+			]
+		},
+		{
+			"label": "Upload Red Right",
+			"type": "shell",
+			"command": "prosv5 upload --slot 4 --name 'Red Right'",
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": true,
+				"panel": "shared",
+				"showReuseMessage": true,
+				"clear": true
+			}
+		},
+		{
+			"label": "Build and Upload Red Right",
+			"type": "shell",
+			"command": "prosv5 make all EXTRA_CXXFLAGS+=-O3 EXTRA_CXXFLAGS+=-DRED_RIGHT; prosv5 upload --slot 4 --name 'Red Right'",
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": true,
+				"panel": "shared",
+				"showReuseMessage": true,
+				"clear": true
+			},
+			"problemMatcher": [
+				"$gcc"
+			]
+		},
+		{
+			"label": "Build Red Left",
+			"type": "shell",
+			"command": "prosv5 make all EXTRA_CXXFLAGS+=-O3 EXTRA_CXXFLAGS+=-DRED_LEFT",
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": true,
+				"panel": "shared",
+				"showReuseMessage": true,
+				"clear": true
+			},
+			"problemMatcher": [
+				"$gcc"
+			]
+		},
+		{
+			"label": "Upload Red Left",
+			"type": "shell",
+			"command": "prosv5 upload --slot 5 --name 'Red Left'",
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": true,
+				"panel": "shared",
+				"showReuseMessage": true,
+				"clear": true
+			}
+		},
+		{
+			"label": "Build and Upload Red Left",
+			"type": "shell",
+			"command": "prosv5 make all EXTRA_CXXFLAGS+=-O3 EXTRA_CXXFLAGS+=-DRED_LEFT; prosv5 upload --slot 5 --name 'Red Left'",
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": true,
+				"panel": "shared",
+				"showReuseMessage": true,
+				"clear": true
+			},
+			"problemMatcher": [
+				"$gcc"
+			]
+		},
+		{
+			"label": "Build Any",
+			"type": "shell",
+			"command": "prosv5 make all EXTRA_CXXFLAGS+=-O3 EXTRA_CXXFLAGS+=-DANY",
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": true,
+				"panel": "shared",
+				"showReuseMessage": true,
+				"clear": true
+			},
+			"problemMatcher": [
+				"$gcc"
+			]
+		},
+		{
+			"label": "Upload Any",
+			"type": "shell",
+			"command": "prosv5 upload --slot 6 --name 'Any'",
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": true,
+				"panel": "shared",
+				"showReuseMessage": true,
+				"clear": true
+			}
+		},
+		{
+			"label": "Build and Upload Any",
+			"type": "shell",
+			"command": "prosv5 make all EXTRA_CXXFLAGS+=-O3 EXTRA_CXXFLAGS+=-DANY; prosv5 upload --slot 6 --name 'Any'",
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": true,
+				"panel": "shared",
+				"showReuseMessage": true,
+				"clear": true
+			},
+			"problemMatcher": [
+				"$gcc"
+			]
+		},
+		{
+			"label": "Build Skills",
+			"type": "shell",
+			"command": "prosv5 make all EXTRA_CXXFLAGS+=-O3 EXTRA_CXXFLAGS+=-DSKILLS",
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": true,
+				"panel": "shared",
+				"showReuseMessage": true,
+				"clear": true
+			},
+			"problemMatcher": [
+				"$gcc"
+			]
+		},
+		{
+			"label": "Upload Skills",
+			"type": "shell",
+			"command": "prosv5 upload --slot 7 --name 'Skills'",
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": true,
+				"panel": "shared",
+				"showReuseMessage": true,
+				"clear": true
+			}
+		},
+		{
+			"label": "Build and Upload Skills",
+			"type": "shell",
+			"command": "prosv5 make all EXTRA_CXXFLAGS+=-O3 EXTRA_CXXFLAGS+=-DSKILLS; prosv5 upload --slot 7 --name 'Skills'",
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": true,
+				"panel": "shared",
+				"showReuseMessage": true,
+				"clear": true
+			},
+			"problemMatcher": [
+				"$gcc"
+			]
+		}
+	]
+}
