@@ -1,8 +1,10 @@
 #include "config.hpp"
+#include "main.h"
+#include "movement.hpp"
 
 // Drive motors
-pros::Motor motors::driveLeft(DRIVE_LEFT_MOTOR_PORT, false);
-pros::Motor motors::driveRight(DRIVE_RIGHT_MOTOR_PORT, true);
+pros::Motor motors::driveLeft(DRIVE_LEFT_MOTOR_PORT, pros::E_MOTOR_GEARSET_36, false);
+pros::Motor motors::driveRight(DRIVE_RIGHT_MOTOR_PORT, pros::E_MOTOR_GEARSET_36, true);
 
 // Intake motors
 pros::Motor motors::intakeLeft(INTAKE_LEFT_MOTOR_PORT, true);
@@ -13,7 +15,7 @@ pros::Motor motors::scoreLeft(SCORE_LEFT_MOTOR_PORT, false);
 pros::Motor motors::scoreRight(SCORE_RIGHT_MOTOR_PORT, true);
 
 // Flap motor
-pros::Motor motors::flap(FLAP_MOTOR_PORT, true);
+pros::Motor motors::flap(FLAP_MOTOR_PORT, pros::E_MOTOR_GEARSET_36, true);
 
 // Controllers
 pros::Controller controllers::master(pros::E_CONTROLLER_MASTER);
