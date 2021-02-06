@@ -17,7 +17,7 @@ EXTRA_CFLAGS= -O3
 EXTRA_CXXFLAGS= -O3
 
 # Set to 1 to enable hot/cold linking
-USE_PACKAGE:=0
+USE_PACKAGE:=1
 
 # Set this to 1 to add additional rules to compile your project as a PROS library template
 IS_LIBRARY:=0
