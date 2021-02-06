@@ -46,6 +46,21 @@ namespace motors {
 	extern void stopAllMotors();
 } // namespace motors
 
+struct simpleControl {
+	pros::controller_digital_e_t forward;
+	pros::controller_digital_e_t backward;
+
+	simpleControl(pros::controller_digital_e_t f, pros::controller_digital_e_t b);
+};
+
+namespace controls {
+	extern simpleControl intake;
+	extern simpleControl scoring;
+	extern simpleControl flap;
+
+	extern bool arcade;
+} // namespace controls
+
 namespace controllers {
 	extern pros::Controller master;
 }

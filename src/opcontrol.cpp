@@ -39,9 +39,19 @@ inline void drive(uint_fast8_t& driveSpeed) {
 
 	// Use analog stick if no drive movement buttons are pressed
 	else {
-		// Set motors
-		motors::driveLeft = controllers::master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
-		motors::driveRight = controllers::master.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_Y);
+		// Arcade drive
+		if(controls::arcade) {
+			int power = controllers::master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
+			int turn = controllers::master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_X);
+
+			motors::driveLeft = power + turn;
+			motors::driveRight = power - turn;
+		}
+		// Tank drive
+		else {
+			motors::driveLeft = controllers::master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
+			motors::driveRight = controllers::master.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_Y);
+		}
 		return;
 	}
 }
@@ -51,12 +61,12 @@ inline void intake() {
 	constexpr uint_fast8_t intakeSpeed = 127;
 
 	// Intake in
-	if(controllers::master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)) {
+	if(controllers::master.get_digital(controls::intake.forward)) {
 		motors::intakeLeft = intakeSpeed;
 		motors::intakeRight = intakeSpeed;
 	}
 	// Intake out
-	else if(controllers::master.get_digital(pros::E_CONTROLLER_DIGITAL_R1)) {
+	else if(controllers::master.get_digital(controls::intake.backward)) {
 		motors::intakeLeft = -intakeSpeed;
 		motors::intakeRight = -intakeSpeed;
 	}
@@ -70,15 +80,15 @@ inline void intake() {
 inline void scoring() {
 	constexpr uint_fast8_t scoringSpeed = 127;
 
-	// Score down
-	if(controllers::master.get_digital(pros::E_CONTROLLER_DIGITAL_R1)) {
-		motors::scoreRight = scoringSpeed;
-		motors::scoreLeft = scoringSpeed;
-	}
 	// Score up
-	else if(controllers::master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)) {
-		motors::scoreLeft = -scoringSpeed;
+	if(controllers::master.get_digital(controls::scoring.forward)) {
 		motors::scoreRight = -scoringSpeed;
+		motors::scoreLeft = -scoringSpeed;
+	}
+	// Score down
+	else if(controllers::master.get_digital(controls::scoring.backward)) {
+		motors::scoreLeft = scoringSpeed;
+		motors::scoreRight = scoringSpeed;
 	}
 	// Score hold
 	else {
@@ -89,11 +99,11 @@ inline void scoring() {
 
 inline void flap() {
 	// Flap in
-	if(controllers::master.get_digital(pros::E_CONTROLLER_DIGITAL_X)) {
+	if(controllers::master.get_digital(controls::flap.forward)) {
 		motors::flap = -127;
 	}
 	// Flap out
-	else if(controllers::master.get_digital(pros::E_CONTROLLER_DIGITAL_B)) {
+	else if(controllers::master.get_digital(controls::flap.backward)) {
 		motors::flap = 50;
 	}
 	// Flap hold

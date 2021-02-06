@@ -52,3 +52,14 @@ void motors::stopAllMotors() {
 	for(const auto& motor : motors::motorPorts)
 		pros::c::motor_move(motor, 0);
 }
+
+simpleControl::simpleControl(pros::controller_digital_e_t f, pros::controller_digital_e_t b) {
+	forward = f;
+	backward = b;
+}
+
+simpleControl controls::intake(pros::E_CONTROLLER_DIGITAL_Y, pros::E_CONTROLLER_DIGITAL_Y);
+simpleControl controls::scoring(pros::E_CONTROLLER_DIGITAL_Y, pros::E_CONTROLLER_DIGITAL_Y);
+simpleControl controls::flap(pros::E_CONTROLLER_DIGITAL_Y, pros::E_CONTROLLER_DIGITAL_Y);
+
+bool controls::arcade = false;
