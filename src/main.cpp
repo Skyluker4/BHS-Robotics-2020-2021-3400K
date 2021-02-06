@@ -1,8 +1,7 @@
 #include "main.h"
 #include "config.hpp"
 
-void initialize()
-{
+void initialize() {
 	// Set up motors
 	motors::initMotors();
 
@@ -10,8 +9,7 @@ void initialize()
 	pros::lcd::initialize();
 }
 
-void disabled()
-{
+void disabled() {
 	// Stop All Motors
 	motors::brakeModeHoldAllMotors();
 	motors::stopAllMotors();

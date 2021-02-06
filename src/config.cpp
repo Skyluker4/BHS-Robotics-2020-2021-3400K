@@ -24,8 +24,7 @@ uint_fast8_t motors::motorPorts[] = {
 	SCORE_RIGHT_MOTOR_PORT, FLAP_MOTOR_PORT};
 
 // Functions
-void motors::initMotors()
-{
+void motors::initMotors() {
 	// Set braking modes for motors
 	// Drive Motors
 	motors::driveLeft.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
@@ -42,14 +41,12 @@ void motors::initMotors()
 	// Flap Motor
 	motors::flap.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
 }
-void motors::brakeModeHoldAllMotors()
-{
-	for (const auto &motor : motors::motorPorts)
+void motors::brakeModeHoldAllMotors() {
+	for(const auto& motor : motors::motorPorts)
 		pros::c::motor_set_brake_mode(motor, pros::E_MOTOR_BRAKE_HOLD);
 }
 
-void motors::stopAllMotors()
-{
-	for (const auto &motor : motors::motorPorts)
+void motors::stopAllMotors() {
+	for(const auto& motor : motors::motorPorts)
 		pros::c::motor_move(motor, 0);
 }

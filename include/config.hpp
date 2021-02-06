@@ -1,10 +1,10 @@
 #ifndef MOTORCONFIG
 #define MOTORCONFIG
 
-#include <cstdint>
-#include "pros/motors.hpp"
 #include "pros/misc.hpp"
+#include "pros/motors.hpp"
 #include "pros/vision.hpp"
+#include <cstdint>
 
 // Port Mapping
 // Drive motors
@@ -22,8 +22,7 @@
 // Flap motor
 #define FLAP_MOTOR_PORT 8
 
-namespace motors
-{
+namespace motors {
 	// Drive motors
 	extern pros::Motor driveLeft;
 	extern pros::Motor driveRight;
@@ -47,8 +46,7 @@ namespace motors
 	extern void stopAllMotors();
 } // namespace motors
 
-namespace controllers
-{
+namespace controllers {
 	extern pros::Controller master;
 }
 
