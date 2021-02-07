@@ -7,24 +7,7 @@ void redLeft(), redRight(), blueLeft(), blueRight(), any(), skills();
 
 // Run correct autonomous
 void autonomous() {
-#ifdef RED_LEFT
-	redLeft();
-#endif
-#ifdef RED_RIGHT
-	redRight();
-#endif
-#ifdef BLUE_LEFT
-	blueLeft();
-#endif
-#ifdef BLUE_RIGHT
-	blueRight();
-#endif
-#ifdef ANY
-	any();
-#endif
-#ifdef SKILLS
 	skills();
-#endif
 }
 
 // Autonomous definitions
@@ -34,8 +17,8 @@ void intake(int speed) {
 	motors::intakeLeft = speed;
 	motors::intakeRight = speed;
 
-	motors::scoreLeft = speed;
-	motors::scoreRight = speed;
+	motors::scoreLeft = -speed;
+	motors::scoreRight = -speed;
 }
 
 void skills() {
@@ -58,28 +41,45 @@ void skills() {
 	pros::delay(510);
 	motors::flap = -127;
 	pros::delay(500);
+	motors::flap = 50;
+	pros::delay(230);
+	motors::flap = -127;
+	pros::delay(500);
 	motors::flap = 127;
 	pros::delay(510);
+	motors::flap = -127;
+	pros::delay(20);
+	motors::flap = 0;
 
 	// Turn left
 	move(-127, 127, 500, true);
 	pros::delay(500);
 
 	// Forward
-	move(127, 500, true);
+	move(127, 1580, true);
 	pros::delay(500);
 
 	// Turn left
-	move(-127, 127, 500, true);
+	move(-127, 127, 600, true);
 	pros::delay(500);
 
 	// Forward
-	move(127, 500, true);
+	move(127, 900, true);
+	pros::delay(500);
+
+	// Turn right
+	move(127, -127, 100, true);
 	pros::delay(500);
 
 	// Score
+	motors::flap = 127;
+	pros::delay(10);
+	motors::flap = 0;
+	pros::delay(510);
+	intake(-127);
+	pros::delay(400);
 	intake(127);
-	pros::delay(2000);
+	pros::delay(5000);
 	intake(0);
 
 	// Forward
