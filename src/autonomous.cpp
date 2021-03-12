@@ -22,6 +22,11 @@ void intake(int speed) {
 }
 
 void skills() {
+	// Move intakes down
+	motors::intakeMover = 127;
+	pros::delay(300);
+	motors::intakeMover = 0;
+
 	// Move forward some
 	move(127, 500);
 
@@ -56,20 +61,20 @@ void skills() {
 	pros::delay(500);
 
 	// Forward
-	move(127, 1580, true);
-	pros::delay(500);
+	move(127, 1600, true);
+	pros::delay(750);
 
 	// Turn left
-	move(-127, 127, 600, true);
+	move(-127, 127, 450, true);
 	pros::delay(500);
 
 	// Forward
 	move(127, 900, true);
 	pros::delay(500);
 
-	// Turn right
-	move(127, -127, 100, true);
-	pros::delay(500);
+	// Backward
+	move(-127, 150, true);
+	pros::delay(100);
 
 	// Score
 	motors::flap = 127;
