@@ -9,6 +9,7 @@ pros::Motor motors::driveRight(DRIVE_RIGHT_MOTOR_PORT, pros::E_MOTOR_GEARSET_36,
 // Intake motors
 pros::Motor motors::intakeLeft(INTAKE_LEFT_MOTOR_PORT, true);
 pros::Motor motors::intakeRight(INTAKE_RIGHT_MOTOR_PORT, false);
+pros::Motor motors::intakeMover(INTAKE_MOVER_PORT, false);
 
 // Scoring motors
 pros::Motor motors::scoreLeft(SCORE_LEFT_MOTOR_PORT, false);

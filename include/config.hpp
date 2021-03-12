@@ -14,6 +14,7 @@
 // Intake motors
 #define INTAKE_LEFT_MOTOR_PORT 1
 #define INTAKE_RIGHT_MOTOR_PORT 10
+#define INTAKE_MOVER_PORT 7
 
 // Scoring motors
 #define SCORE_LEFT_MOTOR_PORT 2
@@ -30,6 +31,7 @@ namespace motors {
 	// Intake motors
 	extern pros::Motor intakeLeft;
 	extern pros::Motor intakeRight;
+	extern pros::Motor intakeMover;
 
 	// Scoring motors
 	extern pros::Motor scoreLeft;
