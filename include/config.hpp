@@ -61,6 +61,10 @@ namespace controls {
 	extern simpleControl flap;
 
 	extern bool arcade;
+	extern bool scoreArcade;
+	extern bool leftArcade;
+
+	void configButton();
 } // namespace controls
 
 namespace controllers {

@@ -3,9 +3,6 @@
 #include "config.hpp"
 #include "main.h"
 
-bool scoreArcade = false;
-bool leftArcade = true;
-
 inline void drive(uint_fast8_t& driveSpeed) {
 	// Change speed for linear movements (Buttons A (increase) and Y (decrease))
 	if(controllers::master.get_digital(pros::E_CONTROLLER_DIGITAL_A) && driveSpeed < 127)
@@ -45,7 +42,7 @@ inline void drive(uint_fast8_t& driveSpeed) {
 		// Arcade drive
 		if(controls::arcade) {
 			int power, turn;
-			if(leftArcade) {
+			if(controls::leftArcade) {
 				power = controllers::master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
 				turn = controllers::master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_X);
 			} else {
@@ -89,7 +86,12 @@ inline void intake() {
 inline void scoring() {
 	uint_fast8_t scoringSpeed = 127;
 
-	if(!scoreArcade) {
+	if(controls::scoreArcade) {
+		// Use analog sticks
+		scoringSpeed = -controllers::master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
+		motors::scoreLeft = scoringSpeed;
+		motors::scoreRight = scoringSpeed;
+	} else {
 		// Score up
 		if(controllers::master.get_digital(controls::scoring.forward)) {
 			motors::scoreRight = -scoringSpeed;
@@ -105,10 +107,6 @@ inline void scoring() {
 			motors::scoreLeft = 0;
 			motors::scoreRight = 0;
 		}
-	} else {
-		scoringSpeed = -controllers::master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
-		motors::scoreLeft = scoringSpeed;
-		motors::scoreRight = scoringSpeed;
 	}
 }
 
@@ -127,48 +125,6 @@ inline void flap() {
 	}
 }
 
-void configButton() {
-	bool buttonsMapped = false;
-
-	while(!buttonsMapped) {
-		// Ethan
-		if(controllers::master.get_digital(pros::E_CONTROLLER_DIGITAL_UP)) {
-			controls::intake.forward = pros::E_CONTROLLER_DIGITAL_R1;
-			controls::intake.backward = pros::E_CONTROLLER_DIGITAL_L1;
-
-			controls::scoring.forward = controls::intake.forward;
-			controls::scoring.backward = controls::intake.backward;
-
-			controls::flap.forward = pros::E_CONTROLLER_DIGITAL_X;
-			controls::flap.backward = pros::E_CONTROLLER_DIGITAL_B;
-
-			buttonsMapped = true;
-
-			controls::arcade = false;
-		}
-		// Samuel
-		else if(controllers::master.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN)) {
-			controls::intake.forward = pros::E_CONTROLLER_DIGITAL_R1;
-			controls::intake.backward = pros::E_CONTROLLER_DIGITAL_R2;
-
-			controls::scoring.forward = controls::intake.forward;
-			controls::scoring.backward = controls::intake.backward;
-
-			controls::flap.forward = pros::E_CONTROLLER_DIGITAL_L1;
-			controls::flap.backward = pros::E_CONTROLLER_DIGITAL_L2;
-
-			buttonsMapped = true;
-
-			controls::arcade = true;
-			scoreArcade = true;
-			leftArcade = false;
-		}
-		pros::delay(2);
-	}
-
-	controllers::master.rumble("...");
-}
-
 void opcontrol() {
 	// Make sure we know what's going on
 	pros::lcd::clear_line(0);
@@ -177,7 +133,7 @@ void opcontrol() {
 	controllers::master.set_text(0, 0, "Driver control");
 
 	// Prompt for button layout
-	configButton();
+	controls::configButton();
 
 	// Setup variables
 	uint_fast8_t driveSpeed = 127;

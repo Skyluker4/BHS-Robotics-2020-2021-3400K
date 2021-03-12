@@ -54,6 +54,8 @@ void motors::stopAllMotors() {
 		pros::c::motor_move(motor, 0);
 }
 
+// Controls
+
 simpleControl::simpleControl(pros::controller_digital_e_t f, pros::controller_digital_e_t b) {
 	forward = f;
 	backward = b;
@@ -64,3 +66,49 @@ simpleControl controls::scoring(pros::E_CONTROLLER_DIGITAL_Y, pros::E_CONTROLLER
 simpleControl controls::flap(pros::E_CONTROLLER_DIGITAL_Y, pros::E_CONTROLLER_DIGITAL_Y);
 
 bool controls::arcade = false;
+bool controls::scoreArcade = false;
+bool controls::leftArcade = true;
+
+void controls::configButton() {
+	using namespace controls;
+
+	bool buttonsMapped = false;
+
+	while(!buttonsMapped) {
+		// Ethan
+		if(controllers::master.get_digital(pros::E_CONTROLLER_DIGITAL_UP)) {
+			intake.forward = pros::E_CONTROLLER_DIGITAL_R1;
+			intake.backward = pros::E_CONTROLLER_DIGITAL_L1;
+
+			scoring.forward = controls::intake.forward;
+			scoring.backward = controls::intake.backward;
+
+			flap.forward = pros::E_CONTROLLER_DIGITAL_X;
+			flap.backward = pros::E_CONTROLLER_DIGITAL_B;
+
+			arcade = false;
+
+			buttonsMapped = true;
+		}
+		// Samuel
+		else if(controllers::master.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN)) {
+			intake.forward = pros::E_CONTROLLER_DIGITAL_R1;
+			intake.backward = pros::E_CONTROLLER_DIGITAL_R2;
+
+			scoring.forward = controls::intake.forward;
+			scoring.backward = controls::intake.backward;
+
+			flap.forward = pros::E_CONTROLLER_DIGITAL_L1;
+			flap.backward = pros::E_CONTROLLER_DIGITAL_L2;
+
+			arcade = true;
+			scoreArcade = true;
+			leftArcade = false;
+
+			buttonsMapped = true;
+		}
+		pros::delay(2);
+	}
+
+	controllers::master.rumble("...");
+}
